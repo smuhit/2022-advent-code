@@ -10,13 +10,11 @@ strengths = 0
 for datum in data:
     if cycles in key_cycles:
         strengths += x * cycles
-    if datum == 'noop':
+    cycles += 1
+    if y := datum[5:]:
+        if cycles in key_cycles:
+            strengths += x * cycles
         cycles += 1
-    else:
-        _, y = datum.split(' ')
-        if cycles + 1 in key_cycles:
-            strengths += x * (cycles + 1)
-        cycles += 2
         x += int(y)
 
 print(strengths)       
@@ -29,11 +27,8 @@ crt = [[' ' for _ in range(40)] for _ in range(6)]
 for datum in data:
     if abs(x - (cycles % 40)) <= 1:
         crt[cycles // 40][cycles % 40] = '#'
-    if datum == 'noop':
-        cycles += 1
-    else:
-        _, y = datum.split(' ')
-        cycles += 1
+    cycles += 1
+    if y := datum[5:]:
         if abs(x - (cycles % 40)) <= 1:
             crt[cycles // 40][cycles % 40] = '#'
         cycles += 1
